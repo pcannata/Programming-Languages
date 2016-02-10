@@ -34,11 +34,13 @@ public class Aristotle {
         System.out.println("\nSocrates's cat is going to speak");
         socrates.animalSpeak(a3);
 
-        // DOwncasting won't run
+        // Downcasting won't run
         /*
         Cat myCat1 = (Cat)a1;
         System.out.println("\nSocrates's cat is going to speak");
         socrates.animalSpeak(myCat1);
         */
+
+        System.out.println(a1.getVirtue());
     }
 }

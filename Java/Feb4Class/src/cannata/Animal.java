@@ -3,7 +3,7 @@ package cannata;
 /**
  * Created by pcannata on 2/2/16.
  */
-public class Animal extends Substance {
+public class Animal extends Substance implements Quality {
     private  static boolean alive;
     public void setAlive(boolean a) { alive = a;}
     public boolean getAlive() {return alive;}
@@ -26,5 +26,6 @@ public class Animal extends Substance {
     public void speak() {
         System.out.println("I am an animal");
     }
+    public String getVirtue() { return virtue;}
     public String eats() {return "food";}
 }
