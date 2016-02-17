@@ -5,14 +5,18 @@
     <title>Google Maps API Example</title>
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<!-- See https://developers.google.com/maps/documentation/javascript/reference -->
 	<script>
+		<!-- The next line is the same as jQuery(document).ready(function(){ -->
 		$(document).ready(function(){
 			var mapOptions = {
 				zoom: 8, 
 				center: new google.maps.LatLng(33.4936111, -117.1475), 
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			};
-			var map = new google.maps.Map($("#map").get(0), mapOptions);
+			new google.maps.Map($("#map").get(0), mapOptions);
+			<!-- #... is a CSS Selector that selects the element with id=... -->
+			<!-- For more CSS selectors, see http://www.w3schools.com/cssref/css_selectors.asp -->
 		});
     </script>
     <style>
