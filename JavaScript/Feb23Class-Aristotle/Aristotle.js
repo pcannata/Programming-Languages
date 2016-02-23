@@ -12,8 +12,11 @@ var substance = function(){ // This line to the line with "}();" creates a Closu
             data.name = n },
         memo: 0,
         dob: new Date('January 1, 1980'),
+        $dob: function(n){data.memo += 1; data.dob = n},
         says:"Hello, I'm a substance",
-        quality: 'Virtue'
+        $says: function(n){data.memo += 1; data.says = n},
+        quality: 'Virtue',
+        $quality: function(n){data.memo += 1; data.quality = n}
     };
 
     var F = function(){};
@@ -39,7 +42,9 @@ var animal = function(p){
         $name: function(n){data.memo += 1; data.name = n},
         memo: 0,
         dob: new Date('January 1, 1990'),
-        says:"Hello, I'm an animal"
+        $dob: function(n){data.memo += 1; data.dob = n},
+        says:"Hello, I'm an animal",
+        $says: function(n){data.memo += 1; data.says = n}
     };
 
     var F = function(){};
@@ -64,7 +69,9 @@ var cat = function(p){
         $name: function(n){data.memo += 1; data.name = n},
         memo: 0,
         dob: new Date('January 1, 2000'),
-        says:"Hello, I'm a cat"
+        $dob: function(n){data.memo += 1; data.dob = n},
+        says:"Hello, I'm a cat",
+        $says: function(n){data.memo += 1; data.says = n}
     };
 
     var F = function(){};
@@ -89,7 +96,9 @@ var human = function(p){
         $name: function(n){data.memo += 1; data.name = n},
         memo: 0,
         dob: new Date('January 1, 2010'),
-        says:"Hello, I'm a human"
+        $dob: function(n){data.memo += 1; data.dob = n},
+        says:"Hello, I'm a human",
+        $says: function(n){data.memo += 1; data.says = n}
     };
 
     var F = function(){};
@@ -134,6 +143,8 @@ document.writeln(socrates.sname + "<BR>");
 document.writeln(socrates.run('says') + "<BR>");
 document.writeln(socrates.run('quality') + "<BR>");
 socrates.run('$name')('socrates');
+socrates.run('$says')('I am Socrates.');
+document.writeln(socrates.run('says') + "<BR>");
 document.writeln(socrates.age + "<BR>");
 
 // View local properties.
