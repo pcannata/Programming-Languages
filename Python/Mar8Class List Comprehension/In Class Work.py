@@ -22,41 +22,41 @@ dept = (('DEPTNO', 'DNAME', 'LOC'),
 print emp[1::4] # Starting with the second elemnt, print every 4th element.
 
 # select ename, sal from emp
-print "\nselect ename, sal from emp: ", [[i[1], i[5]] for i in emp[1::]]
+print "\nselect ename, sal from emp: "
 
 # select ename, sal from emp where sal > 1000
-print "\nselect ename, sal from emp where sal > 1000: ", [[i[1], i[5]] for i in emp[1::] if i[5] > 1000]
+print "\nselect ename, sal from emp where sal > 1000: "
 
 # select ename, sal from emp where sal > 1000 order by sal
-print "\nselect ename, sal from emp where sal > 1000 order by sal: ", sorted([[i[1], i[5]] for i in emp[1::] if i[5] > 1000], key = lambda x: int(x[1]))
+print "\nselect ename, sal from emp where sal > 1000 order by sal: "
 
 # select ename, sal from emp where sal > 1000 order by sal desc
-print "\nselect ename, sal from emp where sal > 1000 order by sal desc: ", sorted([[i[1], i[5]] for i in emp[1::] if i[5] > 1000], key = lambda x: int(x[1]), reverse=True)
+print "\nselect ename, sal from emp where sal > 1000 order by sal desc: "
 
 # select ename, sal from emp where sal > 1000 order by sal, ename
-print "\nselect ename, sal from emp where sal > 1000 order by sal, ename: ", sorted([[i[1], i[5]] for i in emp[1::] if i[5] > 1000], key = lambda x: (int(x[1]), x[0]))
+print "\nselect ename, sal from emp where sal > 1000 order by sal, ename: "
 
 # select ename, sal from emp where sal > 1000 order by sal, ename desc
-print "\nselect ename, sal from emp where sal > 1000 order by sal, ename desc: ", sorted(sorted([[i[1], i[5]] for i in emp[1::] if i[5] > 1000], key = lambda x: x[0], reverse = True), key = lambda x: int(x[1]))
+print "\nselect ename, sal from emp where sal > 1000 order by sal, ename desc: "
 
 # select ename, dname from emp e join dept d on(e.deptno = d.deptno)
-print "\nselect ename, dname from emp e join dept d on(e.deptno = d.deptno): ", [ [i[1], j[1]] for i in emp[1::] for j in dept[1::] if i[7] == j[0] ]
+print "\nselect ename, dname from emp e join dept d on(e.deptno = d.deptno): "
 
 # select deptno, avg(sal) from emp group by deptno
 print "\nselect deptno, avg(sal) from emp group by deptno"
-for department in { d[7] for d in emp[1::] }: print (department, (lambda l: round(sum(l) / len(l), 2))(map(float,[ e[5] for e in emp[1::] if e[7] == department ])))
+
 print "\nselect deptno, avg(sal) from emp group by deptno"
-for department in { d[7] for d in emp[1::] }: print (lambda deptno, avgSal: (deptno, avgSal))(department, (lambda l: round(sum(l) / len(l), 2))(map(float,[ e[5] for e in emp[1::] if e[7] == department ])))
+
 # select deptno, avg(sal) from emp group by deptno having avg(sal) > 2000
 print "\nselect deptno, avg(sal) from emp group by deptno having avg(sal) > 2000"
-for department in { d[7] for d in emp[1::] }: print (lambda deptno, avgSal: (deptno, avgSal) if avgSal > 2000 else '')(department, (lambda l: round(sum(l) / len(l), 2))(map(float,[ e[5] for e in emp[1::] if e[7] == department ])))
+
 
 # SQL: select dept.deptno, emp.ename, dept.dname from emp right outer join dept on (emp.deptno = dept.deptno)
 # This just gives the cross-product of emp and dept
-print "\nRight outer join step 1: ", [ [i[1], j[1]] for i in emp[1::] for j in dept[1::] ]
+print "\nRight outer join step 1: "
 
 # This eliminates all the rows where emp.deptno != dept.deptno) and adds one ( j[0], None, j[1]) tuple for each dept row (notice, this is set comprehension which eliminates duplicate ( j[0], None, j[1]) tuples)  but that's too many.
-print "\nRight outer join step 2: ",  sorted({ (j[0], i[1], j[1]) if i[7] == j[0]  else ( j[0], None, j[1]) for i in emp[1::] for j in dept[1::] } )
+print "\nRight outer join step 2: "
 
 # Send the list from the previous solution to a lambda function that eliminates the incorrect ( j[0], None, j[1]) tuples
-print "\nRight outer join step 3: ",  (lambda l : [ l[i] for i in range(len(l)) if l[i][1] != None or l[i][0] not in {x[7] for x in emp} ]) (sorted({ ( j[0], i[1], j[1]) if i[7] == j[0] else ( j[0], None, j[1]) for i in emp[1::] for j in dept[1::] } ) )
+print "\nRight outer join step 3: "
