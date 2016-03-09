@@ -42,6 +42,9 @@ print "\nselect ename, sal from emp where sal > 1000 order by sal, ename desc: "
 # select ename, dname from emp e join dept d on(e.deptno = d.deptno)
 print "\nselect ename, dname from emp e join dept d on(e.deptno = d.deptno): ", [ [i[1], j[1]] for i in emp[1::] for j in dept[1::] if i[7] == j[0] ]
 
+# select ename, dname from emp e join dept d on(e.deptno = d.deptno) where sal > 1000
+print "\nselect ename, dname from emp e join dept d on(e.deptno = d.deptno): ", [ [i[1], j[1]] for i in emp[1::] for j in dept[1::] if i[7] == j[0] and i[5] > 1000 ]
+
 # select deptno, avg(sal) from emp group by deptno
 print "\nselect deptno, avg(sal) from emp group by deptno"
 for department in { d[7] for d in emp[1::] }: print (department, (lambda l: round(sum(l) / len(l), 2))(map(float,[ e[5] for e in emp[1::] if e[7] == department ])))
