@@ -48,8 +48,10 @@ print "\nselect ename, dname from emp e join dept d on(e.deptno = d.deptno): ", 
 # select deptno, avg(sal) from emp group by deptno
 print "\nselect deptno, avg(sal) from emp group by deptno"
 for department in { d[7] for d in emp[1::] }: print (department, (lambda l: round(sum(l) / len(l), 2))(map(float,[ e[5] for e in emp[1::] if e[7] == department ])))
+
 print "\nselect deptno, avg(sal) from emp group by deptno"
-for department in { d[7] for d in emp[1::] }: print (lambda deptno, avgSal: (deptno, avgSal))(department, (lambda l: round(sum(l) / len(l), 2))(map(float,[ e[5] for e in emp[1::] if e[7] == department ])))
+for department in { d[7] for d in emp[1::] }: print (lambda deptno, avgSal: [deptno, avgSal])(department, (lambda l: round(sum(l) / len(l), 2))(map(float,[ e[5] for e in emp[1::] if e[7] == department ])))
+
 # select deptno, avg(sal) from emp group by deptno having avg(sal) > 2000
 print "\nselect deptno, avg(sal) from emp group by deptno having avg(sal) > 2000"
 for department in { d[7] for d in emp[1::] }: print (lambda deptno, avgSal: (deptno, avgSal) if avgSal > 2000 else '')(department, (lambda l: round(sum(l) / len(l), 2))(map(float,[ e[5] for e in emp[1::] if e[7] == department ])))
