@@ -36,9 +36,6 @@ print "\nselect ename, sal from emp where sal > 1000 order by sal desc: ", sorte
 # select ename, sal from emp where sal > 1000 order by sal, ename
 print "\nselect ename, sal from emp where sal > 1000 order by sal, ename: ", sorted([[i[1], i[5]] for i in emp[1::] if i[5] > 1000], key = lambda x: (int(x[1]), x[0]))
 
-# select ename, sal from emp where sal > 1000 order by sal, ename desc
-print "\nselect ename, sal from emp where sal > 1000 order by sal, ename desc: ", sorted(sorted([[i[1], i[5]] for i in emp[1::] if i[5] > 1000], key = lambda x: x[0], reverse = True), key = lambda x: int(x[1]))
-
 # select ename, dname from emp e join dept d on(e.deptno = d.deptno)
 print "\nselect ename, dname from emp e join dept d on(e.deptno = d.deptno): ", [ [i[1], j[1]] for i in emp[1::] for j in dept[1::] if i[7] == j[0] ]
 
