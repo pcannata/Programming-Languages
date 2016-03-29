@@ -69,6 +69,19 @@ var list = function() {
                 }
             }
         }
+        f.iterator = (function() {
+            var currentPos = l.head;
+            return function() {
+                if (currentPos.next === null){
+                    return null;
+                }
+                else {
+                    var data = currentPos.data;
+                    currentPos = currentPos.next;
+                    return data;
+                }
+            }
+        })();
 
         return f;
     }();
@@ -80,6 +93,8 @@ l1.concat('a')
 l1.cons('b')
 document.writeln("l1: " + l1.first() + "<BR>");
 document.writeln("l1: " + l1.length() + "<BR>");
+document.writeln(l1.iterator() + "<BR>")
+document.writeln(l1.iterator() + "<BR>")
 
 var l2 = new list();
 l2.cons('c')
