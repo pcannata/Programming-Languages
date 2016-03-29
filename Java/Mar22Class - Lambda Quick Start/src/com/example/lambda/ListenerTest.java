@@ -15,7 +15,8 @@ public class ListenerTest {
         
     JButton testButton = new JButton("Test Button");
     testButton.addActionListener(new ActionListener(){
-    @Override public void actionPerformed(ActionEvent ae){
+    @Override
+    public void actionPerformed(ActionEvent ae){
         System.out.println("Click Detected by Anon Class");
       }
     });

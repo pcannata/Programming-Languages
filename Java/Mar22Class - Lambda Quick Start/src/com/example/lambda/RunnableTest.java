@@ -10,9 +10,13 @@ public class RunnableTest {
     
     // Anonymous Runnable
     Runnable r1 = new Runnable(){
-      
       @Override
       public void run(){
+        try {
+          Thread.sleep(5000);                 //1000 milliseconds is one second.
+        } catch(InterruptedException ex) {
+          Thread.currentThread().interrupt();
+        }
         System.out.println("Hello world one!");
       }
     };
@@ -21,8 +25,8 @@ public class RunnableTest {
     Runnable r2 = () -> System.out.println("Hello world two!");
     
     // Run em!
-    r1.run();
-    r2.run();
+    new Thread(r1).start();
+    new Thread(r2).start();
     
   }
 }
