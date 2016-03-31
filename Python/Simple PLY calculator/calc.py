@@ -1,37 +1,31 @@
-
 # -----------------------------------------------------------------------------
 # calc.py
 #
-# A simple calculator with variables -- all in one file.
+# A simple calculator with variables.   This is from O'Reilly's
+# "Lex and Yacc", p. 63.
 # -----------------------------------------------------------------------------
+
+import sys
+sys.path.insert(0,"../..")
+
+if sys.version_info[0] >= 3:
+    raw_input = input
 
 tokens = (
     'NAME','NUMBER',
-    'PLUS','MINUS','TIMES','DIVIDE','EQUALS',
-    'LPAREN','RPAREN',
 )
+
+literals = ['=','+','-','*','/', '(',')']
 
 # Tokens
 
-t_PLUS    = r'\+'
-t_MINUS   = r'-'
-t_TIMES   = r'\*'
-t_DIVIDE  = r'/'
-t_EQUALS  = r'='
-t_LPAREN  = r'\('
-t_RPAREN  = r'\)'
 t_NAME    = r'[a-zA-Z_][a-zA-Z0-9_]*'
 
 def t_NUMBER(t):
     r'\d+'
-    try:
-        t.value = int(t.value)
-    except ValueError:
-        print("Integer value too large %d", t.value)
-        t.value = 0
+    t.value = int(t.value)
     return t
 
-# Ignored characters
 t_ignore = " \t"
 
 def t_newline(t):
@@ -43,67 +37,71 @@ def t_error(t):
     t.lexer.skip(1)
 
 # Build the lexer
-import ply.lex as lex   # ply.lex comes from the ply folder in the PLY download.
-lexer = lex.lex()
+import ply.lex as lex
+lex.lex()
 
 # Parsing rules
 
 precedence = (
-    ('left','PLUS','MINUS'),
-    ('left','TIMES','DIVIDE'),
+    ('left','+','-'),
+    ('left','*','/'),
     ('right','UMINUS'),
 )
 
 # dictionary of names
 names = { }
 
-def p_statement_assign(t):
-    'statement : NAME EQUALS expression'
-    names[t[1]] = t[3]
+def p_statement_assign(p):
+    'statement : NAME "=" expression'
+    names[p[1]] = p[3]
 
-def p_statement_expr(t):
+def p_statement_expr(p):
     'statement : expression'
-    print(t[1])
+    print(p[1])
 
-def p_expression_binop(t):
-    '''expression : expression PLUS expression
-                  | expression MINUS expression
-                  | expression TIMES expression
-                  | expression DIVIDE expression'''
-    if t[2] == '+'  : t[0] = t[1] + t[3]
-    elif t[2] == '-': t[0] = t[1] - t[3]
-    elif t[2] == '*': t[0] = t[1] * t[3]
-    elif t[2] == '/': t[0] = t[1] / t[3]
+def p_expression_binop(p):
+    '''expression : expression '+' expression
+                  | expression '-' expression
+                  | expression '*' expression
+                  | expression '/' expression'''
+    if p[2] == '+'  : p[0] = p[1] + p[3]
+    elif p[2] == '-': p[0] = p[1] - p[3]
+    elif p[2] == '*': p[0] = p[1] * p[3]
+    elif p[2] == '/': p[0] = p[1] / p[3]
 
-def p_expression_uminus(t):
-    'expression : MINUS expression %prec UMINUS'
-    t[0] = -t[2]
+def p_expression_uminus(p):
+    "expression : '-' expression %prec UMINUS"
+    p[0] = -p[2]
 
-def p_expression_group(t):
-    'expression : LPAREN expression RPAREN'
-    t[0] = t[2]
+def p_expression_group(p):
+    "expression : '(' expression ')'"
+    p[0] = p[2]
 
-def p_expression_number(t):
-    'expression : NUMBER'
-    t[0] = t[1]
+def p_expression_number(p):
+    "expression : NUMBER"
+    p[0] = p[1]
 
-def p_expression_name(t):
-    'expression : NAME'
+def p_expression_name(p):
+    "expression : NAME"
     try:
-        t[0] = names[t[1]]
+        p[0] = names[p[1]]
     except LookupError:
-        print("Undefined name '%s'" % t[1])
-        t[0] = 0
+        print("Undefined name '%s'" % p[1])
+        p[0] = 0
 
-def p_error(t):
-    print("Syntax error at '%s'" % t.value)
+def p_error(p):
+    if p:
+        print("Syntax error at '%s'" % p.value)
+    else:
+        print("Syntax error at EOF")
 
-import ply.yacc as yacc   # ply.yacc comes from the ply folder in the PLY download.
-parser = yacc.yacc()
+import ply.yacc as yacc
+yacc.yacc()
 
-while True:
+while 1:
     try:
         s = raw_input('calc > ')
     except EOFError:
         break
-    parser.parse(s)
+    if not s: continue
+    yacc.parse(s)
