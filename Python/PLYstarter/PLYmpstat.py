@@ -7,22 +7,13 @@ Data 1.0
 Data 2.0
 """
 
-tokens = ('HEADER1', 'HEADER2', 'DATA', 'INTEGER')
+tokens = ('LINUX', 'CPU', 'ALL')
 literals = ['.',  ]
 
 # Tokens
-t_HEADER1  = r'^Header1[ -~]+$'
-t_HEADER2  = r'^Header2.*$'
-t_DATA     = r'Data'
-
-def t_INTEGER(t):
-    r'\d+'
-    try:
-        t.value = int(t.value)
-    except ValueError:
-        print("Integer value too large %d", t.value)
-        t.value = 0
-    return t
+t_LINUX  = r'^Linux.*$'
+t_CPU    = r'^.*CPU.*$'
+t_ALL    = r'^.*all.*$'
 
 # Ignored characters
 t_ignore = " \r"
@@ -45,16 +36,16 @@ global time_step
 time_step = 0
 
 def p_start(t):
-    '''start : HEADER1
-             | HEADER2
-             | DATA float
+    '''start : LINUX
+             | CPU
+             | ALL
+             | empty
     '''
-    if len(t) > 2: #This matches the third line in the parser rule, i.e., | DATA float
-        print "Saw a ", t[0], ", ", t[1], ", ", t[2], "_~_"
+    print "Saw: ", t[1]
 
-def p_float(t):
-    'float : INTEGER "." INTEGER'
-    t[0] =  str(t[1]) + str(t[2]) + str(t[3])
+def p_empty(t):
+    'empty : '
+    pass
 
 def p_error(t):
     if t == None:

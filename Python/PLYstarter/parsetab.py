@@ -5,9 +5,9 @@ _tabversion = '3.8'
 
 _lr_method = 'LALR'
 
-_lr_signature = '3E630D34656CD35CB7EF5B032C5B7FE8'
+_lr_signature = 'E452BB6D1D996A13A59BDB8CD28AC7E2'
     
-_lr_action_items = {'.':([5,],[7,]),'HEADER2':([0,],[1,]),'HEADER1':([0,],[3,]),'INTEGER':([4,7,],[5,8,]),'DATA':([0,],[4,]),'$end':([1,2,3,6,8,],[-2,0,-1,-3,-4,]),}
+_lr_action_items = {'ALL':([0,],[2,]),'LINUX':([0,],[5,]),'CPU':([0,],[3,]),'$end':([0,1,2,3,4,5,],[-5,0,-3,-2,-4,-1,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'start':([0,],[2,]),'float':([4,],[6,]),}
+_lr_goto_items = {'start':([0,],[1,]),'empty':([0,],[4,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,8 +26,9 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> start","S'",1,None,None,None),
-  ('start -> HEADER1','start',1,'p_start','PLYstarter.py',47),
-  ('start -> HEADER2','start',1,'p_start','PLYstarter.py',48),
-  ('start -> DATA float','start',2,'p_start','PLYstarter.py',49),
-  ('float -> INTEGER . INTEGER','float',3,'p_float','PLYstarter.py',53),
+  ('start -> LINUX','start',1,'p_start','PLYmpstat.py',39),
+  ('start -> CPU','start',1,'p_start','PLYmpstat.py',40),
+  ('start -> ALL','start',1,'p_start','PLYmpstat.py',41),
+  ('start -> empty','start',1,'p_start','PLYmpstat.py',42),
+  ('empty -> <empty>','empty',0,'p_empty','PLYmpstat.py',47),
 ]
