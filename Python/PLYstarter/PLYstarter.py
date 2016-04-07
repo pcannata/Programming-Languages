@@ -11,8 +11,8 @@ tokens = ('HEADER1', 'HEADER2', 'DATA', 'INTEGER')
 literals = ['.',  ]
 
 # Tokens
-t_HEADER1  = r'Header1[ -~]+'
-t_HEADER2  = r'Header2.*'
+t_HEADER1  = r'^Header1[ -~]+$'
+t_HEADER2  = r'^Header2.*$'
 t_DATA     = r'Data'
 
 def t_INTEGER(t):
