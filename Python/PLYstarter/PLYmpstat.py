@@ -7,13 +7,23 @@ Data 1.0
 Data 2.0
 """
 
-tokens = ('LINUX', 'CPU', 'ALL')
-literals = ['.',  ]
+tokens = ('LINUX', 'CPU', 'ALL', 'AMPM', 'INTEGER')
+literals = ['.', ':'  ]
 
 # Tokens
 t_LINUX  = r'^Linux.*$'
-t_CPU    = r'^.*CPU.*$'
-t_ALL    = r'^.*all.*$'
+t_CPU    = r'CPU.*$'
+t_ALL    = r'all.*$'
+t_AMPM   = r'[AP]M'
+
+def t_INTEGER(t):
+    r'\d+'
+    try:
+        t.value = int(t.value)
+    except ValueError:
+        print("Integer value too large %d", t.value)
+        t.value = 0
+    return t
 
 # Ignored characters
 t_ignore = " \r"
@@ -37,11 +47,24 @@ time_step = 0
 
 def p_start(t):
     '''start : LINUX
-             | CPU
-             | ALL
+             | cpu
+             | all
              | empty
+             | time
     '''
     print "Saw: ", t[1]
+
+def p_time(t):
+    'time : INTEGER ":" INTEGER ":" INTEGER AMPM'
+    t[0] = str(t[1]) + str(t[2]) + str(t[3]) + str(t[4]) + str(t[5]) + " " + str(t[6])
+
+def p_cpu(t):
+    'cpu : time CPU'
+    t[0] = str(t[1]) + str(t[2])
+
+def p_all(t):
+    'all : time ALL'
+    t[0] = str(t[1]) + str(t[2])
 
 def p_empty(t):
     'empty : '
