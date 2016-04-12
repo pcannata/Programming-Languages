@@ -50,9 +50,9 @@ def p_start(t):
              | cpu
              | all
              | empty
-             | time
+             | data
     '''
-    print "Saw: ", t[1]
+    #print "Saw: ", t[1]
 
 def p_time(t):
     'time : INTEGER ":" INTEGER ":" INTEGER AMPM'
@@ -65,6 +65,14 @@ def p_cpu(t):
 def p_all(t):
     'all : time ALL'
     t[0] = str(t[1]) + str(t[2])
+
+def p_data(t):
+    'data : time INTEGER float float float float float float float float float'
+    print "Saw a data line with: " + str(t[2]) + ", " + str(t[10]) + ", " + str(t[11])
+
+def p_float(t):
+    'float : INTEGER "." INTEGER'
+    t[0] = str(t[1]) + str(t[2]) + str(t[3])
 
 def p_empty(t):
     'empty : '

@@ -5,9 +5,9 @@ _tabversion = '3.8'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'B458A793591E01AB01BBC954A580E646'
+_lr_signature = 'ECD88615902865D89A5FBA42406F93CF'
     
-_lr_action_items = {'ALL':([4,14,],[8,-6,]),'AMPM':([13,],[14,]),'LINUX':([0,],[2,]),'INTEGER':([0,10,12,],[5,11,13,]),':':([5,11,],[10,12,]),'CPU':([4,14,],[9,-6,]),'$end':([0,1,2,3,4,6,7,8,9,14,],[-9,-3,-1,0,-5,-2,-4,-8,-7,-6,]),}
+_lr_action_items = {'ALL':([2,23,],[10,-6,]),'AMPM':([21,],[23,]),'.':([13,],[16,]),'LINUX':([0,],[4,]),'INTEGER':([0,2,9,12,14,16,17,18,19,20,22,23,24,25,26,27,],[5,9,13,15,13,19,13,21,-10,13,13,-6,13,13,13,13,]),':':([5,15,],[12,18,]),'CPU':([2,23,],[11,-6,]),'$end':([0,1,3,4,6,7,8,10,11,19,28,],[-11,-3,0,-1,-5,-2,-4,-8,-7,-10,-9,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'start':([0,],[3,]),'all':([0,],[1,]),'cpu':([0,],[6,]),'empty':([0,],[7,]),'time':([0,],[4,]),}
+_lr_goto_items = {'all':([0,],[1,]),'float':([9,14,17,20,22,24,25,26,27,],[14,17,20,22,24,25,26,27,28,]),'start':([0,],[3,]),'time':([0,],[2,]),'data':([0,],[6,]),'cpu':([0,],[7,]),'empty':([0,],[8,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -30,9 +30,11 @@ _lr_productions = [
   ('start -> cpu','start',1,'p_start','PLYmpstat.py',50),
   ('start -> all','start',1,'p_start','PLYmpstat.py',51),
   ('start -> empty','start',1,'p_start','PLYmpstat.py',52),
-  ('start -> time','start',1,'p_start','PLYmpstat.py',53),
+  ('start -> data','start',1,'p_start','PLYmpstat.py',53),
   ('time -> INTEGER : INTEGER : INTEGER AMPM','time',6,'p_time','PLYmpstat.py',58),
-  ('cpu -> time CPU','cpu',2,'p_cpu','PLYmpstat.py',61),
-  ('all -> time ALL','all',2,'p_all','PLYmpstat.py',64),
-  ('empty -> <empty>','empty',0,'p_empty','PLYmpstat.py',67),
+  ('cpu -> time CPU','cpu',2,'p_cpu','PLYmpstat.py',62),
+  ('all -> time ALL','all',2,'p_all','PLYmpstat.py',66),
+  ('data -> time INTEGER float float float float float float float float float','data',11,'p_data','PLYmpstat.py',70),
+  ('float -> INTEGER . INTEGER','float',3,'p_float','PLYmpstat.py',74),
+  ('empty -> <empty>','empty',0,'p_empty','PLYmpstat.py',78),
 ]
