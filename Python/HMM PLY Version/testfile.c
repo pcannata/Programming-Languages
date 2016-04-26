@@ -3,7 +3,7 @@ float x, y, z;
 
 int main ( ) {
     int n, i, f;
-    1 + z;
+    13 + 11;
     n = 3;
     i = 1;
     f = 1;

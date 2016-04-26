@@ -205,8 +205,13 @@ def p_relOp(p):
 def p_addition(p):
     '''addition : term
                 | term addOP addition'''
+    from java.lang import Math
+    import Addition
+    if len(p) == 4 and isinstance( p[1], int ) and isinstance( p[3], int ):
+        print "Calling java Math: ", Math.max(p[1], p[3])
+        print "Calling java Addition.add: ", Addition.add(p[1], p[3])
     if len(p) == 3: p[0] = str(p[1]) + str(p[2])
-    else : p[0] = str(p[1])
+    else : p[0] = p[1]
 
 def p_addOP(p):
     '''addOP : PLUS
@@ -217,7 +222,7 @@ def p_term(p):
     '''term : factor
             | factor mulOP term'''
     if len(p) == 3: p[0] = str(p[1]) + str(p[2])
-    else : p[0] = str(p[1])
+    else : p[0] = p[1]
 
 def p_mulOP(p):
     '''mulOP : MULT
@@ -229,7 +234,7 @@ def p_factor(p):
     '''factor : primary
               | primary unaryOP factor'''
     if len(p) == 3: p[0] = str(p[1]) + str(p[2])
-    else : p[0] = str(p[1])
+    else : p[0] = p[1]
 
 def p_unaryOp(p):
     '''unaryOP : MINUS
