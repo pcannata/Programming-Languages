@@ -170,18 +170,18 @@ def p_while(p):
 def p_expression(p):
     '''expression : conjunction
                   | conjunction OR_OP expression'''
-    p[0] = "Expression"
+    p[0] = "Expression: ", p[1]
 
 def p_conjunction(p):
     '''conjunction : equality
                    | AND_OP equality'''
-    if len(p) == 3: p[0] = str(p[1]) + str(p[2])
+    if len(p) == 4: p[0] = str(p[1]) + str(p[2]) + str(p[3])
     else : p[0] = str(p[1])
 
 def p_equality(p):
     '''equality : relation
                 | relation equOp equality'''
-    if len(p) == 3: p[0] = str(p[1]) + str(p[2])
+    if len(p) == 4: p[0] = str(p[1]) + str(p[2]) + str(p[3])
     else : p[0] = str(p[1])
 
 def p_equOp(p):
@@ -192,7 +192,7 @@ def p_equOp(p):
 def p_relation(p):
     '''relation : addition
                 | addition relOp relation'''
-    if len(p) == 3: p[0] = str(p[1]) + str(p[2])
+    if len(p) == 4: p[0] = str(p[1]) + str(p[2]) + str(p[3])
     else : p[0] = str(p[1])
 
 def p_relOp(p):
@@ -210,7 +210,7 @@ def p_addition(p):
     if len(p) == 4 and isinstance( p[1], int ) and isinstance( p[3], int ):
         print "Calling java Math: ", Math.max(p[1], p[3])
         print "Calling java Addition.add: ", Addition.add(p[1], p[3])
-    if len(p) == 3: p[0] = str(p[1]) + str(p[2])
+    if len(p) == 4: p[0] = str(p[1]) + str(p[2]) + str(p[3])
     else : p[0] = p[1]
 
 def p_addOP(p):
@@ -221,7 +221,7 @@ def p_addOP(p):
 def p_term(p):
     '''term : factor
             | factor mulOP term'''
-    if len(p) == 3: p[0] = str(p[1]) + str(p[2])
+    if len(p) == 4: p[0] = str(p[1]) + str(p[2]) + str(p[3])
     else : p[0] = p[1]
 
 def p_mulOP(p):
@@ -233,7 +233,7 @@ def p_mulOP(p):
 def p_factor(p):
     '''factor : primary
               | primary unaryOP factor'''
-    if len(p) == 3: p[0] = str(p[1]) + str(p[2])
+    if len(p) == 4: p[0] = str(p[1]) + str(p[2]) + str(p[3])
     else : p[0] = p[1]
 
 def p_unaryOp(p):
